@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -13,7 +12,7 @@ import StarField from '../components/StarField';
 const Index: React.FC = () => {
   useEffect(() => {
     // Set page title
-    document.title = "Stellaris: 🚀AI Space Explorer";
+    document.title = "Stellaris: AI Space Exploration Simulator";
     
     // Smooth scroll for internal links
     const handleLinkClick = (e: MouseEvent) => {
