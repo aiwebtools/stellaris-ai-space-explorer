@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -8,6 +9,7 @@ import FAQ from '../components/FAQ';
 import Disclaimer from '../components/Disclaimer';
 import Footer from '../components/Footer';
 import StarField from '../components/StarField';
+import PopupDisclaimer from '../components/PopupDisclaimer';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -40,6 +42,7 @@ const Index: React.FC = () => {
   return (
     <div className="min-h-screen bg-space-black text-white overflow-x-hidden">
       <StarField />
+      <PopupDisclaimer />
       <Header />
       <main>
         <Hero />
