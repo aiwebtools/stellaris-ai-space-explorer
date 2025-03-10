@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, X } from 'lucide-react';
+import { CheckCircle, X, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 
@@ -65,7 +65,10 @@ const PopupDisclaimer: React.FC = () => {
               <li>This is a simulation tool for educational and entertainment purposes only.</li>
               <li>Information provided should not be used for actual space missions without expert verification.</li>
               <li>We do not guarantee the accuracy of any generated content.</li>
-              <li>Your interactions may be used to improve our AI systems.</li>
+              <li className="flex items-start">
+                <Lock size={16} className="text-space-cyan mt-1 mr-1 flex-shrink-0" />
+                <span>Your conversations are completely private and are <strong className="text-space-cyan">never</strong> used for AI training.</span>
+              </li>
             </ul>
             
             <p className="italic text-xs text-gray-400 mt-2">

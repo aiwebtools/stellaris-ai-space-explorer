@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Lock, Shield } from 'lucide-react';
 
 const Disclaimer: React.FC = () => {
   return (
@@ -27,9 +28,12 @@ const Disclaimer: React.FC = () => {
             <strong className="text-white">Not a Substitute for Professional Expertise:</strong> Stellaris is not a substitute for professional advice or expertise in space exploration, engineering, astronomy, or related fields. All critical decisions should be verified by qualified professionals.
           </p>
           
-          <p>
-            <strong className="text-white">Data and Privacy:</strong> User interactions with Stellaris are subject to OpenAI's privacy policies. For details about how your data is handled, please refer to the Privacy Policy link in the footer.
-          </p>
+          <div className="flex items-start space-x-2 p-3 bg-space-blue/10 border border-space-cyan/20 rounded-md">
+            <Shield className="text-space-cyan mt-1 flex-shrink-0" />
+            <div>
+              <strong className="text-white">Data Privacy Commitment:</strong> Your conversations with Stellaris are completely private. Unlike many AI systems, we do not use your interactions to train our AI models. Your exploration data and queries remain confidential and are not shared with third parties. For specific details about data handling, please refer to our Privacy Policy linked in the footer.
+            </div>
+          </div>
           
           <p>
             <strong className="text-white">Third-Party Content:</strong> Stellaris may reference or provide links to third-party content. AI WEB TOOLS LLC is not responsible for the accuracy or reliability of any third-party information.
