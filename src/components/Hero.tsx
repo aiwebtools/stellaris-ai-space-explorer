@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
           </div>
           
           <div className="w-full max-w-5xl opacity-0 animate-blur-in" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
-            <YouTubeEmbed videoId="4ysPr5IUhoQ" autoplay={true} />
+            <YouTubeEmbed videoId="tJwhDOE3mUM" autoplay={true} />
           </div>
         </div>
       </div>
