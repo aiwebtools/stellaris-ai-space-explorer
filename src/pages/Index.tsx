@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
+import TryNowButton from '../components/TryNowButton';
 import HowItWorks from '../components/HowItWorks';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
@@ -47,6 +48,7 @@ const Index: React.FC = () => {
       <main>
         <Hero />
         <Features />
+        <TryNowButton />
         <HowItWorks />
         <Testimonials />
         <FAQ />
