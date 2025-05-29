@@ -11,6 +11,7 @@ import Disclaimer from '../components/Disclaimer';
 import Footer from '../components/Footer';
 import StarField from '../components/StarField';
 import PopupDisclaimer from '../components/PopupDisclaimer';
+import FloatingToolsButton from '../components/FloatingToolsButton';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -55,6 +56,7 @@ const Index: React.FC = () => {
         <Disclaimer />
       </main>
       <Footer />
+      <FloatingToolsButton />
     </div>
   );
 };
