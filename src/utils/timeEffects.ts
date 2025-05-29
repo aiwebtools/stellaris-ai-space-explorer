@@ -1,5 +1,5 @@
 
-export const createTimePortalEffect = (destinationUrl: string) => {
+export const createTimePortalEffect = (destinationUrl: string, customMessage?: string) => {
   // Create overlay container
   const overlay = document.createElement('div');
   overlay.className = 'time-portal-overlay';
@@ -277,8 +277,8 @@ export const createTimePortalEffect = (destinationUrl: string) => {
   createWhooshSound();
   setTimeout(() => createPortalSound(), 200);
   
-  const randomMessage = activationMessages[Math.floor(Math.random() * activationMessages.length)];
-  setTimeout(() => speakMessage(randomMessage), 400);
+  const messageToSpeak = customMessage || activationMessages[Math.floor(Math.random() * activationMessages.length)];
+  setTimeout(() => speakMessage(messageToSpeak), 400);
 
   // Cleanup and redirect after 2.3 seconds
   setTimeout(() => {
