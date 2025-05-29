@@ -1,8 +1,14 @@
 
 import React from 'react';
 import YouTubeEmbed from './YouTubeEmbed';
+import { createTimePortalEffect } from '../utils/timeEffects';
 
 const Hero: React.FC = () => {
+  const handleStellarisClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
+  };
+
   return (
     <section className="relative min-h-screen pt-24 pb-16 px-6 flex flex-col items-center justify-center overflow-hidden">
       {/* Decorative elements */}
@@ -31,14 +37,12 @@ const Hero: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-12 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-            <a 
-              href="https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer" 
+            <button 
+              onClick={handleStellarisClick}
               className="button-primary text-lg px-8 py-3"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               Launch Stellaris
-            </a>
+            </button>
             <a href="#features" className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-lg">
               Explore Features
             </a>

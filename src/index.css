@@ -93,6 +93,86 @@
   }
 }
 
+/* Time Portal Effect Animations */
+@keyframes vortex-spin {
+  0% { 
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(720deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes energy-pulse {
+  0% { 
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    border-color: rgba(0, 255, 255, 1);
+  }
+  50% {
+    border-color: rgba(255, 0, 255, 1);
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+    border-color: rgba(255, 255, 0, 0);
+  }
+}
+
+@keyframes particle-explosion {
+  0% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% { 
+    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes lightning-flash {
+  0% { 
+    opacity: 0.3;
+    box-shadow: 0 0 5px #00ffff;
+  }
+  100% { 
+    opacity: 1;
+    box-shadow: 0 0 20px #fff, 0 0 30px #00ffff;
+  }
+}
+
+@keyframes flash-fade {
+  0% { 
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% { 
+    opacity: 0;
+  }
+}
+
+@keyframes time-warp {
+  0% { 
+    filter: blur(0px) hue-rotate(0deg) saturate(1);
+  }
+  50% { 
+    filter: blur(5px) hue-rotate(180deg) saturate(2);
+  }
+  100% { 
+    filter: blur(0px) hue-rotate(360deg) saturate(1);
+  }
+}
+
 /* Scrollbar styles */
 ::-webkit-scrollbar {
   width: 8px;

@@ -1,8 +1,39 @@
 
 import React from 'react';
 import Logo from './Logo';
+import { createTimePortalEffect } from '../utils/timeEffects';
 
 const Footer: React.FC = () => {
+  const handleStellarisClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
+  };
+
+  const handlePrivacyPolicyClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://openai.com/policies/privacy-policy/');
+  };
+
+  const handleTermsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://aiwebtools.ai/terms-of-services');
+  };
+
+  const handleMoreToolsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://www.aiwebtools.ai');
+  };
+
+  const handlePhoneClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('tel:+14758008096');
+  };
+
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('mailto:Contact@ai-webtools.com');
+  };
+
   return (
     <footer className="bg-space-black border-t border-white/10 pt-16 pb-8">
       <div className="container mx-auto px-6">
@@ -20,14 +51,12 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-medium mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer" 
-                  className="text-gray-400 hover:text-space-blue transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={handleStellarisClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   Begin Simulation to Space
-                </a>
+                </button>
               </li>
               <li>
                 <a href="#features" className="text-gray-400 hover:text-space-blue transition-colors">
@@ -52,34 +81,28 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-medium mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="https://openai.com/policies/privacy-policy/" 
-                  className="text-gray-400 hover:text-space-blue transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={handlePrivacyPolicyClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   Privacy Policy
-                </a>
+                </button>
               </li>
               <li>
-                <a 
-                  href="https://aiwebtools.ai/terms-of-services" 
-                  className="text-gray-400 hover:text-space-blue transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={handleTermsClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   Terms of Service
-                </a>
+                </button>
               </li>
               <li>
-                <a 
-                  href="https://www.aiwebtools.ai" 
-                  className="text-gray-400 hover:text-space-blue transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={handleMoreToolsClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   More AI Tools
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -89,20 +112,20 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-medium mb-4">Contact</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="tel:+14758008096" 
-                  className="text-gray-400 hover:text-space-blue transition-colors"
+                <button 
+                  onClick={handlePhoneClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   (475) 800-8096
-                </a>
+                </button>
               </li>
               <li>
-                <a 
-                  href="mailto:Contact@ai-webtools.com" 
-                  className="text-gray-400 hover:text-space-blue transition-colors"
+                <button 
+                  onClick={handleEmailClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   Contact@ai-webtools.com
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -110,26 +133,22 @@ const Footer: React.FC = () => {
         
         {/* More AI Tools Button */}
         <div className="mt-12 flex justify-end">
-          <a 
-            href="https://www.aiwebtools.ai" 
+          <button 
+            onClick={handleMoreToolsClick}
             className="rounded-full bg-gradient-to-r from-space-blue to-space-purple px-6 py-3 text-white font-medium transform hover:scale-105 transition-all"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             More AI Tools
-          </a>
+          </button>
         </div>
         
         {/* Copyright */}
         <div className="mt-12 pt-6 border-t border-white/10 text-center">
-          <a
-            href="https://www.aiwebtools.ai"
+          <button
+            onClick={handleMoreToolsClick}
             className="text-gray-400 hover:text-space-blue transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             © 2025 AI WEB TOOLS LLC All rights reserved.
-          </a>
+          </button>
         </div>
       </div>
     </footer>

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import { createTimePortalEffect } from '../utils/timeEffects';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,6 +24,16 @@ const Header: React.FC = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const handleStellarisClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
+  };
+
+  const handleMoreToolsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://www.aiwebtools.ai');
+  };
   
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -33,24 +44,20 @@ const Header: React.FC = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a 
-            href="https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer" 
+          <button 
+            onClick={handleStellarisClick}
             className="button-primary"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             Begin Simulation to Space
-          </a>
+          </button>
           <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
           <a href="#disclaimer" className="text-gray-300 hover:text-white transition-colors">Disclaimer</a>
-          <a 
-            href="https://www.aiwebtools.ai" 
+          <button 
+            onClick={handleMoreToolsClick}
             className="text-gray-300 hover:text-white transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             More AI Tools
-          </a>
+          </button>
         </nav>
         
         {/* Mobile Menu Button */}
@@ -71,15 +78,15 @@ const Header: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden glass-panel mt-3 mx-6 p-4 animate-fade-in-up">
           <nav className="flex flex-col space-y-4">
-            <a 
-              href="https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer" 
+            <button 
+              onClick={(e) => {
+                handleStellarisClick(e);
+                setIsMobileMenuOpen(false);
+              }}
               className="button-primary text-center"
-              onClick={() => setIsMobileMenuOpen(false)}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               Begin Simulation to Space
-            </a>
+            </button>
             <a 
               href="#faq" 
               className="text-gray-300 hover:text-white transition-colors py-2"
@@ -94,15 +101,15 @@ const Header: React.FC = () => {
             >
               Disclaimer
             </a>
-            <a 
-              href="https://www.aiwebtools.ai" 
-              className="text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button 
+              onClick={(e) => {
+                handleMoreToolsClick(e);
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-gray-300 hover:text-white transition-colors py-2 text-left"
             >
               More AI Tools
-            </a>
+            </button>
           </nav>
         </div>
       )}
