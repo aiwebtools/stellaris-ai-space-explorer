@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { Home } from 'lucide-react';
 import { createTimePortalEffect } from '../utils/timeEffects';
 
 const FloatingToolsButton: React.FC = () => {
@@ -13,12 +13,12 @@ const FloatingToolsButton: React.FC = () => {
     <button
       onClick={handleClick}
       className="fixed bottom-6 left-6 z-50 group"
-      aria-label="More AI Web Tools"
+      aria-label="Access AI Web Tools Mainframe"
     >
       <div className="relative">
         {/* Main circular button */}
         <div className="w-16 h-16 bg-gradient-to-r from-space-blue to-space-purple rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group-hover:scale-110">
-          <ExternalLink className="w-6 h-6 text-white" />
+          <Home className="w-6 h-6 text-white" />
         </div>
         
         {/* Glow effect */}
@@ -26,7 +26,7 @@ const FloatingToolsButton: React.FC = () => {
         
         {/* Text label that appears on hover */}
         <div className="absolute left-20 top-1/2 transform -translate-y-1/2 bg-black/80 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap pointer-events-none">
-          MORE AI WEB TOOLS
+          ACCESS AI WEB TOOLS MAINFRAME
           <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-black/80 rotate-45"></div>
         </div>
       </div>
