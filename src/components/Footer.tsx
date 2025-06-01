@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Logo from './Logo';
 import { createTimePortalEffect } from '../utils/timeEffects';
@@ -16,7 +15,7 @@ const Footer: React.FC = () => {
 
   const handleTermsClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://aiwebtools.ai/terms-of-services');
+    createTimePortalEffect('https://aiwebtools.lovable.app/disclaimers');
   };
 
   const handleMoreToolsClick = (e: React.MouseEvent) => {
