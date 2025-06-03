@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-12">
           <div className="inline-block mb-3">
             <span className="inline-block py-1 px-3 text-xs font-medium bg-space-blue/20 text-space-blue rounded-full">
-              NEXT-GEN AI TECHNOLOGY
+              FREE AI TOOLS - AI WEB TOOLS
             </span>
           </div>
           
@@ -29,10 +29,14 @@ const Hero: React.FC = () => {
             <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">
               Stellaris: <span className="text-space-blue">🚀</span>AI Space Explorer
             </span>
+            <span className="block text-2xl md:text-3xl lg:text-4xl mt-2 text-space-cyan">
+              Free AI Tools for Space Exploration
+            </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
-            Your intelligent companion for space exploration, exoplanet settlement, and interstellar discovery.
+            Your intelligent companion for space exploration, exoplanet settlement, and interstellar discovery. 
+            <strong className="text-white"> Best free AI tools</strong> for astrogation, terraforming, and mission planning.
             <span className="block mt-2 italic text-space-cyan">To the stars and beyond...</span>
           </p>
           
@@ -40,11 +44,12 @@ const Hero: React.FC = () => {
             <button 
               onClick={handleStellarisClick}
               className="button-primary text-lg px-8 py-3"
+              aria-label="Launch Stellaris AI Space Explorer - Free AI Tool"
             >
-              Launch Stellaris
+              Launch Free AI Tool
             </button>
             <a href="#features" className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-lg">
-              Explore Features
+              Explore AI Features
             </a>
           </div>
           

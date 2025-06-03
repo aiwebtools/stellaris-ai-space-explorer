@@ -21,51 +21,52 @@ const FeatureCard: React.FC<{
 const Features: React.FC = () => {
   return (
     <section id="features" className="section-container">
-      <h2 className="section-title text-center">Advanced Capabilities</h2>
+      <h2 className="section-title text-center">Advanced Free AI Tools Capabilities</h2>
       <p className="section-subtitle text-center">
-        Stellaris combines cutting-edge AI with specialized knowledge to assist with all aspects of space exploration.
+        Stellaris combines cutting-edge AI with specialized knowledge to assist with all aspects of space exploration. 
+        <strong className="text-white"> Best free AI tools</strong> from AI WEB TOOLS for comprehensive space mission support.
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
         <FeatureCard 
           icon={<Brain className="h-10 w-10" />}
-          title="Comprehensive Knowledge Base"
-          description="Access a vast repository of space exploration data, exoplanet details, and spacecraft systems information to support your mission."
+          title="AI Knowledge Base"
+          description="Access a vast repository of space exploration data, exoplanet details, and spacecraft systems information with our free AI tools to support your mission planning and execution."
           delay={0.2}
         />
         
         <FeatureCard 
           icon={<FileJson className="h-10 w-10" />}
-          title="Schematic Generation"
-          description="Receive detailed, downloadable schematics for any space mission task, tailored to your specific needs and situation."
+          title="AI Schematic Generation"
+          description="Receive detailed, downloadable schematics for any space mission task using our free AI tools, tailored to your specific needs and mission requirements."
           delay={0.3}
         />
         
         <FeatureCard 
           icon={<Database className="h-10 w-10" />}
-          title="Advanced Data Analysis"
-          description="Analyze mission data, statistics, and real-time information to support critical decision-making during your space endeavors."
+          title="AI Data Analysis"
+          description="Analyze mission data, statistics, and real-time information with our advanced free AI tools to support critical decision-making during your space endeavors."
           delay={0.4}
         />
         
         <FeatureCard 
           icon={<BarChart3 className="h-10 w-10" />}
-          title="Predictive Modeling"
-          description="Generate accurate predictions and projections for resource management and mission planning using real-time data and historical trends."
+          title="AI Predictive Modeling"
+          description="Generate accurate predictions and projections for resource management and mission planning using our free AI tools with real-time data and historical trends."
           delay={0.5}
         />
         
         <FeatureCard 
           icon={<Telescope className="h-10 w-10" />}
-          title="Mission Planning"
-          description="Develop comprehensive mission plans, risk assessments, and contingency strategies to ensure the success of your space exploration initiatives."
+          title="AI Mission Planning"
+          description="Develop comprehensive mission plans, risk assessments, and contingency strategies with our free AI tools to ensure the success of your space exploration initiatives."
           delay={0.6}
         />
         
         <FeatureCard 
           icon={<Rocket className="h-10 w-10" />}
-          title="Expert Guidance"
-          description="Receive guidance on astrogation, sensor analysis, terraforming, colony planning, repairs, and construction from a specialized AI assistant."
+          title="AI Expert Guidance"
+          description="Receive guidance on astrogation, sensor analysis, terraforming, colony planning, repairs, and construction from our specialized free AI assistant tools."
           delay={0.7}
         />
       </div>
