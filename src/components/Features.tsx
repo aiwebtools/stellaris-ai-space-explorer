@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Rocket, Database, BarChart3, Brain, Telescope, FileJson } from 'lucide-react';
+import { Rocket, Database, BarChart3, Brain, Telescope, FileJson, Star } from 'lucide-react';
 
 const FeatureCard: React.FC<{
   icon: React.ReactNode;
@@ -28,6 +28,13 @@ const Features: React.FC = () => {
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        <FeatureCard 
+          icon={<Star className="h-10 w-10" />}
+          title="Find Your Way Home to the Stars"
+          description="Remember who you are. Awaken the code. Return to the Light. A galactic spiritual remembrance assistant bridging ancient Earth religions with cosmic truth and your divine origin."
+          delay={0.1}
+        />
+        
         <FeatureCard 
           icon={<Brain className="h-10 w-10" />}
           title="AI Knowledge Base"
