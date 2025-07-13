@@ -21,59 +21,59 @@ const FeatureCard: React.FC<{
 const Features: React.FC = () => {
   return (
     <section id="features" className="section-container">
-      <h2 className="section-title text-center">Advanced Free AI Tools Capabilities</h2>
+      <h2 className="section-title text-center">Master the Galaxy with Advanced AI Tools</h2>
       <p className="section-subtitle text-center">
-        Stellaris combines cutting-edge AI with specialized knowledge to assist with all aspects of space exploration. 
-        <strong className="text-white"> Best free AI tools</strong> from AI WEB TOOLS for comprehensive space mission support.
+        From interstellar empire building to cosmic spiritual awakening - discover the ultimate collection of 
+        <strong className="text-white"> free AI tools</strong> designed for space exploration, galactic strategy, and consciousness expansion.
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
         <FeatureCard 
-          icon={<Star className="h-10 w-10" />}
-          title="Find Your Way Home to the Stars"
-          description="Remember who you are. Awaken the code. Return to the Light. A galactic spiritual remembrance assistant bridging ancient Earth religions with cosmic truth and your divine origin."
+          icon={<Rocket className="h-10 w-10" />}
+          title="Stellaris AI Space Explorer"
+          description="Master galactic empires, plan interstellar colonization, and dominate space strategy. Get expert guidance on fleet composition, technology trees, species design, and diplomatic strategies for Stellaris gameplay."
           delay={0.1}
         />
         
         <FeatureCard 
-          icon={<Brain className="h-10 w-10" />}
-          title="AI Knowledge Base"
-          description="Access a vast repository of space exploration data, exoplanet details, and spacecraft systems information with our free AI tools to support your mission planning and execution."
+          icon={<Star className="h-10 w-10" />}
+          title="Find Your Way Home to the Stars"
+          description="Awaken your cosmic consciousness and remember your divine origin. Bridge ancient Earth religions with galactic history, decode spiritual DNA, and reconnect with your Lyran starseeded heritage through guided remembrance."
           delay={0.2}
         />
         
         <FeatureCard 
-          icon={<FileJson className="h-10 w-10" />}
-          title="AI Schematic Generation"
-          description="Receive detailed, downloadable schematics for any space mission task using our free AI tools, tailored to your specific needs and mission requirements."
+          icon={<Brain className="h-10 w-10" />}
+          title="Advanced Strategic Planning"
+          description="Optimize your galactic expansion with AI-powered strategic analysis. Plan trade routes, manage resources across star systems, and develop long-term empire growth strategies for maximum efficiency."
           delay={0.3}
         />
         
         <FeatureCard 
-          icon={<Database className="h-10 w-10" />}
-          title="AI Data Analysis"
-          description="Analyze mission data, statistics, and real-time information with our advanced free AI tools to support critical decision-making during your space endeavors."
+          icon={<FileJson className="h-10 w-10" />}
+          title="Custom Empire Design"
+          description="Create perfectly balanced custom species, ethics combinations, and government types. Get detailed builds for roleplay scenarios, min-max strategies, and unique galactic civilizations tailored to your playstyle."
           delay={0.4}
         />
         
         <FeatureCard 
-          icon={<BarChart3 className="h-10 w-10" />}
-          title="AI Predictive Modeling"
-          description="Generate accurate predictions and projections for resource management and mission planning using our free AI tools with real-time data and historical trends."
+          icon={<Database className="h-10 w-10" />}
+          title="Technology & Research Optimization"
+          description="Navigate complex tech trees with precision. Prioritize research paths for early game advantages, mid-game power spikes, and late-game ascension. Master unity, tradition, and ascension perk selections."
           delay={0.5}
         />
         
         <FeatureCard 
-          icon={<Telescope className="h-10 w-10" />}
-          title="AI Mission Planning"
-          description="Develop comprehensive mission plans, risk assessments, and contingency strategies with our free AI tools to ensure the success of your space exploration initiatives."
+          icon={<BarChart3 className="h-10 w-10" />}
+          title="Economic & Military Analysis"
+          description="Balance your galactic economy with expert resource management advice. Optimize pop growth, industrial capacity, research output, and military fleet composition for sustained galactic dominance."
           delay={0.6}
         />
         
         <FeatureCard 
-          icon={<Rocket className="h-10 w-10" />}
-          title="AI Expert Guidance"
-          description="Receive guidance on astrogation, sensor analysis, terraforming, colony planning, repairs, and construction from our specialized free AI assistant tools."
+          icon={<Telescope className="h-10 w-10" />}
+          title="Exploration & Discovery"
+          description="Uncover the mysteries of the galaxy with strategic exploration guidance. Learn anomaly priorities, archaeological site management, relic activation, and crisis preparation for ultimate survival."
           delay={0.7}
         />
       </div>
