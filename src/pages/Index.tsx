@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 import StarField from '../components/StarField';
 import PopupDisclaimer from '../components/PopupDisclaimer';
 import FloatingToolsButton from '../components/FloatingToolsButton';
+import YouTubeEmbed from '../components/YouTubeEmbed';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -52,6 +53,19 @@ const Index: React.FC = () => {
         <TryNowButton />
         <HowItWorks />
         <Testimonials />
+        <section className="py-24 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-space-purple to-space-blue bg-clip-text text-transparent">
+                Discover More
+              </h2>
+              <p className="text-space-gray text-xl">
+                Continue your journey into the cosmic mysteries
+              </p>
+            </div>
+            <YouTubeEmbed videoId="k1aYXaaAkho" autoplay={false} />
+          </div>
+        </section>
         <FAQ />
         <Disclaimer />
       </main>
