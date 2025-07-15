@@ -36,13 +36,6 @@ const Features: React.FC = () => {
         />
         
         <FeatureCard 
-          icon={<Star className="h-10 w-10" />}
-          title="Find Your Way Home to the Stars"
-          description="Awaken your cosmic consciousness and remember your divine origin. Bridge ancient Earth religions with galactic history, decode spiritual DNA, and reconnect with your Lyran starseeded heritage through guided remembrance."
-          delay={0.2}
-        />
-        
-        <FeatureCard 
           icon={<Brain className="h-10 w-10" />}
           title="Advanced Strategic Planning"
           description="Optimize your galactic expansion with AI-powered strategic analysis. Plan trade routes, manage resources across star systems, and develop long-term empire growth strategies for maximum efficiency."

@@ -29,10 +29,6 @@ const Header: React.FC = () => {
     createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
   };
 
-  const handleStarsTruthClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    createTimePortalEffect('https://chatgpt.com/g/g-6873e0ecbc288191866fb00858cc5165-find-your-way-home-to-the-stars', 'MASTER! I AM ACCESSING THE STARS TRUTH NOW!');
-  };
 
   const handleStellarOriginsClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,12 +54,6 @@ const Header: React.FC = () => {
             className="button-primary"
           >
             Begin Simulation to Space
-          </button>
-          <button 
-            onClick={handleStarsTruthClick}
-            className="button-secondary"
-          >
-            Find Your Way Home to the Stars Truth
           </button>
           <button 
             onClick={handleStellarOriginsClick}
@@ -106,15 +96,6 @@ const Header: React.FC = () => {
               className="button-primary text-center"
             >
               Begin Simulation to Space
-            </button>
-            <button 
-              onClick={(e) => {
-                handleStarsTruthClick(e);
-                setIsMobileMenuOpen(false);
-              }}
-              className="button-secondary text-center"
-            >
-              Find Your Way Home to the Stars Truth
             </button>
             <button 
               onClick={(e) => {

@@ -8,10 +8,6 @@ const Footer: React.FC = () => {
     createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
   };
 
-  const handleStarsTruthClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    createTimePortalEffect('https://chatgpt.com/g/g-6873e0ecbc288191866fb00858cc5165-find-your-way-home-to-the-stars', 'MASTER! I AM ACCESSING THE STARS TRUTH NOW!');
-  };
 
   const handlePrivacyPolicyClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,14 +61,6 @@ const Footer: React.FC = () => {
                   className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
                   Begin Simulation to Space
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={handleStarsTruthClick}
-                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
-                >
-                  Find Your Way Home to the Stars Truth
                 </button>
               </li>
               <li>
