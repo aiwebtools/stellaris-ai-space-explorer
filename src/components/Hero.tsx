@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
               className="button-primary text-lg px-8 py-3"
               aria-label="Launch Stellaris AI Space Explorer - Free AI Tool"
             >
-              Launch Free AI Tool
+              Launch Stellaris Simulation
             </button>
             <a href="#features" className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-lg">
               Explore AI Features
