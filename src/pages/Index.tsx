@@ -67,6 +67,19 @@ const Index: React.FC = () => {
           </div>
         </section>
         <FAQ />
+        <section className="py-24 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-space-purple to-space-blue bg-clip-text text-transparent">
+                Explore Further
+              </h2>
+              <p className="text-space-gray text-xl">
+                Dive deeper into the cosmic experience
+              </p>
+            </div>
+            <YouTubeEmbed videoId="MYZyst-Vkxg" autoplay={false} />
+          </div>
+        </section>
         <Disclaimer />
       </main>
       <Footer />
