@@ -34,6 +34,11 @@ const Header: React.FC = () => {
     createTimePortalEffect('https://chatgpt.com/g/g-6873e0ecbc288191866fb00858cc5165-find-your-way-home-to-the-stars', 'MASTER! I AM ACCESSING THE STARS TRUTH NOW!');
   };
 
+  const handleStellarOriginsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://chatgpt.com/g/g-6876d3b63b108191948709afa101d5af-stellar-origins-gpt', 'MASTER! I AM ACCESSING STELLAR ORIGINS GPT NOW!');
+  };
+
   const handleMoreToolsClick = (e: React.MouseEvent) => {
     e.preventDefault();
     createTimePortalEffect('https://www.aiwebtools.ai', 'MASTER! I AM ACCESSING AIWEBTOOLS.AI NOW!');
@@ -60,7 +65,12 @@ const Header: React.FC = () => {
           >
             Find Your Way Home to the Stars Truth
           </button>
-          <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
+          <button 
+            onClick={handleStellarOriginsClick}
+            className="text-gray-300 hover:text-white transition-colors"
+          >
+            Stellar Origins GPT
+          </button>
           <a href="#disclaimer" className="text-gray-300 hover:text-white transition-colors">Disclaimer</a>
           <button 
             onClick={handleMoreToolsClick}
@@ -106,13 +116,15 @@ const Header: React.FC = () => {
             >
               Find Your Way Home to the Stars Truth
             </button>
-            <a 
-              href="#faq" 
-              className="text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+            <button 
+              onClick={(e) => {
+                handleStellarOriginsClick(e);
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-gray-300 hover:text-white transition-colors py-2 text-left"
             >
-              FAQ
-            </a>
+              Stellar Origins GPT
+            </button>
             <a 
               href="#disclaimer" 
               className="text-gray-300 hover:text-white transition-colors py-2"

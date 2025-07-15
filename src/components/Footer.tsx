@@ -23,6 +23,11 @@ const Footer: React.FC = () => {
     createTimePortalEffect('https://aiwebtools.lovable.app/disclaimers');
   };
 
+  const handleStellarOriginsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect('https://chatgpt.com/g/g-6876d3b63b108191948709afa101d5af-stellar-origins-gpt', 'MASTER! I AM ACCESSING STELLAR ORIGINS GPT NOW!');
+  };
+
   const handleMoreToolsClick = (e: React.MouseEvent) => {
     e.preventDefault();
     createTimePortalEffect('https://www.aiwebtools.ai');
@@ -76,9 +81,12 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#faq" className="text-gray-400 hover:text-space-blue transition-colors">
-                  FAQ
-                </a>
+                <button 
+                  onClick={handleStellarOriginsClick}
+                  className="text-gray-400 hover:text-space-blue transition-colors text-left"
+                >
+                  Stellar Origins GPT
+                </button>
               </li>
               <li>
                 <a href="#disclaimer" className="text-gray-400 hover:text-space-blue transition-colors">
