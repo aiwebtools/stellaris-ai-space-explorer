@@ -24,7 +24,7 @@ const Features: React.FC = () => {
       <h2 className="section-title text-center">Master the Galaxy with Advanced AI Tools</h2>
       <p className="section-subtitle text-center">
         From interstellar empire building to cosmic spiritual awakening - discover the ultimate collection of 
-        <strong className="text-white"> free AI tools</strong> designed for space exploration, galactic strategy, and consciousness expansion.
+        <strong className="text-white"> specialized AI tools</strong> designed for space exploration, galactic strategy, and consciousness expansion.
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
