@@ -63,7 +63,7 @@ const Index: React.FC = () => {
                 Continue your journey into the cosmic mysteries
               </p>
             </div>
-            <YouTubeEmbed videoId="k1aYXaaAkho" autoplay={false} />
+            <YouTubeEmbed videoId="nSTYLU-qHcY" autoplay={false} />
           </div>
         </section>
         <FAQ />
