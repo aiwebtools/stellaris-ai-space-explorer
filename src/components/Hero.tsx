@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
             >
               Launch Stellaris Simulation
             </button>
-            <a href="https://www.aiwebtools.ai" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-lg">
+            <a href="https://aiwebtools.lovable.app/?via=aiwebtools" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-lg">
               Explore AI Suite
             </a>
           </div>

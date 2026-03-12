@@ -6,7 +6,7 @@ import { createTimePortalEffect } from '../utils/timeEffects';
 const FloatingToolsButton: React.FC = () => {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://www.aiwebtools.ai', 'MASTER! I AM ACCESSING AIWEBTOOLS.AI NOW!');
+    createTimePortalEffect('https://aiwebtools.lovable.app/?via=aiwebtools', 'MASTER! I AM ACCESSING AIWEBTOOLS.AI NOW!');
   };
 
   return (

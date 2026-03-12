@@ -21,7 +21,7 @@ const Logo: React.FC<LogoProps> = ({ className }) => {
           <span className="text-space-blue"> 🚀</span>
         </h1>
         <p className="text-[10px] text-gray-400 font-medium">
-          Presented by <a href="https://www.aiwebtools.ai" target="_blank" rel="noopener noreferrer" className="text-space-purple hover:text-space-pink transition-colors">AiWebTools.Ai</a>
+          Presented by <a href="https://aiwebtools.lovable.app/?via=aiwebtools" target="_blank" rel="noopener noreferrer" className="text-space-purple hover:text-space-pink transition-colors">AiWebTools.Ai</a>
         </p>
       </div>
     </div>

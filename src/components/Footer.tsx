@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
 
   const handleMoreToolsClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://www.aiwebtools.ai');
+    createTimePortalEffect('https://aiwebtools.lovable.app/?via=aiwebtools');
   };
 
   const handlePhoneClick = (e: React.MouseEvent) => {
