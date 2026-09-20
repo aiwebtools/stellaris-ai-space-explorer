@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stellaris.lovable.app/sitemap.xml
