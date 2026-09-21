@@ -13,6 +13,8 @@ import StarField from '../components/StarField';
 import PopupDisclaimer from '../components/PopupDisclaimer';
 import FloatingToolsButton from '../components/FloatingToolsButton';
 import YouTubeEmbed from '../components/YouTubeEmbed';
+import MissionConsoleSection from '../components/mission/MissionConsoleSection';
+import MissionChatLauncher from '../components/mission/MissionChatLauncher';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -49,6 +51,7 @@ const Index: React.FC = () => {
       <Header />
       <main>
         <Hero />
+        <MissionConsoleSection />
         <Features />
         <TryNowButton />
         <HowItWorks />
@@ -71,6 +74,7 @@ const Index: React.FC = () => {
       </main>
       <Footer />
       <FloatingToolsButton />
+      <MissionChatLauncher />
     </div>
   );
 };
