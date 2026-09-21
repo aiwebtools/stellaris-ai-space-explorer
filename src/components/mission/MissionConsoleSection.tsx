@@ -17,29 +17,30 @@ const MissionConsoleSection: React.FC = () => {
         galactic strategy — right here, no signup needed.
       </p>
 
-      <div className="max-w-4xl mx-auto mt-10 glass-panel p-4 sm:p-6">
-        <div className="flex items-center gap-3 pb-4 border-b border-white/10 mb-4">
+      <div className="max-w-5xl mx-auto mt-10 mission-panel mission-corners p-4 sm:p-6 relative overflow-hidden">
+        <div className="mission-scanline" aria-hidden="true" />
+        <div className="relative z-10 flex items-center gap-3 pb-4 border-b border-border mb-4">
           <img
             src={missionOfficer}
             alt="Stellaris mission guidance officer"
             loading="lazy"
             width={816}
             height={816}
-            className="w-12 h-12 rounded-full object-cover ring-2 ring-space-blue/60"
+            className="w-12 h-12 rounded-full object-cover ring-2 ring-space-cyan/60 shadow-mission-glow"
           />
           <div>
-            <h3 className="font-semibold text-white">Stellaris Flight Officer</h3>
-            <p className="text-xs text-space-cyan">Online • mission guidance AI</p>
+            <h3 className="font-semibold text-foreground uppercase tracking-[0.08em]">Stellaris Flight Officer</h3>
+            <p className="text-xs text-mission-green flex items-center gap-1.5"><span className="mission-status-dot" /> Online • mission guidance AI</p>
           </div>
           <Link
             to="/mission-control"
-            className="ml-auto inline-flex items-center gap-2 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors"
+            className="ml-auto inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <MessagesSquare className="w-4 h-4" /> Open full console
           </Link>
         </div>
 
-        <div className="h-[520px] flex flex-col">
+        <div className="h-[520px] flex flex-col relative z-10">
           {thread && (
             <MissionChat
               key={thread.id}

@@ -73,6 +73,10 @@ export default {
 					"indigo": "#4f46e5",
 					"violet": "#7c3aed"
 				},
+				mission: {
+					green: 'hsl(var(--mission-green))',
+					amber: 'hsl(var(--mission-amber))',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -81,6 +85,10 @@ export default {
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
+				mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+			},
+			boxShadow: {
+				'mission-glow': 'var(--shadow-mission-glow)',
 			},
 			keyframes: {
 				'accordion-down': {
