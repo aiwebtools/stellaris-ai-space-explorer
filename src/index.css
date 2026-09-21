@@ -35,7 +35,155 @@
     --ring: 224 76.3% 48%;
 
     --radius: 0.75rem;
+    --mission-green: 153 72% 52%;
+    --mission-amber: 38 92% 58%;
+    --mission-panel: 224 62% 6%;
+    --mission-grid: 190 92% 55%;
+    --shadow-mission-glow: 0 0 22px hsl(190 92% 55% / 0.32);
   }
+}
+
+@layer components {
+  .mission-control-page {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 74% 14%, hsl(var(--accent) / 0.18), transparent 27%),
+      radial-gradient(circle at 12% 82%, hsl(var(--primary) / 0.16), transparent 30%),
+      hsl(var(--background));
+  }
+
+  .mission-control-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.14;
+    background-image:
+      linear-gradient(hsl(var(--mission-grid) / 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--mission-grid) / 0.2) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(to bottom, transparent, black 22%, black 72%, transparent);
+    transform: perspective(600px) rotateX(66deg) scale(1.45) translateY(28%);
+    transform-origin: bottom;
+  }
+
+  .mission-panel {
+    background: linear-gradient(145deg, hsl(var(--mission-panel) / 0.9), hsl(var(--card) / 0.62));
+    border: 1px solid hsl(var(--mission-grid) / 0.24);
+    border-radius: 0.35rem;
+    box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04), 0 18px 60px hsl(var(--background) / 0.45);
+    backdrop-filter: blur(18px);
+  }
+
+  .mission-telemetry {
+    background: hsl(var(--mission-panel) / 0.76);
+    border: 1px solid hsl(var(--mission-grid) / 0.2);
+    border-radius: 0.25rem;
+    box-shadow: inset 0 0 24px hsl(var(--mission-grid) / 0.025);
+  }
+
+  .mission-corners {
+    clip-path: polygon(0 10px, 10px 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+  }
+
+  .mission-topbar {
+    min-height: 48px;
+    border-bottom: 1px solid hsl(var(--mission-grid) / 0.16);
+  }
+
+  .mission-status-dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    flex: none;
+    border-radius: 9999px;
+    background: hsl(var(--mission-green));
+    box-shadow: 0 0 9px hsl(var(--mission-green) / 0.85);
+    animation: mission-status-pulse 1.8s ease-in-out infinite;
+  }
+
+  .mission-scanline {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.16;
+    background: linear-gradient(to bottom, transparent 0%, hsl(var(--mission-grid) / 0.12) 48%, transparent 52%);
+    background-size: 100% 9px;
+    animation: mission-scan 8s linear infinite;
+  }
+
+  .mission-radar {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    border: 1px solid hsl(var(--mission-grid) / 0.22);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background:
+      repeating-radial-gradient(circle at 50% 100%, transparent 0 20px, hsl(var(--mission-grid) / 0.12) 21px 22px),
+      linear-gradient(90deg, transparent 49.6%, hsl(var(--mission-grid) / 0.2) 50%, transparent 50.4%),
+      hsl(var(--background) / 0.58);
+  }
+
+  .mission-radar span {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 50%;
+    height: 1px;
+    transform-origin: left;
+    background: linear-gradient(90deg, hsl(var(--mission-grid) / 0.9), transparent);
+    animation: mission-radar-sweep 3.2s ease-in-out infinite alternate;
+    box-shadow: 0 0 12px hsl(var(--mission-grid) / 0.55);
+  }
+
+  .mission-radar i,
+  .mission-radar b {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 9999px;
+    background: hsl(var(--mission-green));
+    box-shadow: 0 0 8px hsl(var(--mission-green));
+  }
+
+  .mission-radar i { left: 32%; bottom: 28%; }
+  .mission-radar b { right: 24%; bottom: 46%; animation: mission-status-pulse 1.2s infinite; }
+
+  .mission-orbit {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    border: 1px solid hsl(var(--mission-grid) / 0.12);
+    border-radius: 50%;
+    box-shadow: 0 0 60px hsl(var(--primary) / 0.08);
+  }
+  .mission-orbit-one { width: 42vw; height: 18vw; top: 12%; right: -13%; transform: rotate(-18deg); }
+  .mission-orbit-two { width: 48vw; height: 22vw; bottom: 2%; left: -18%; transform: rotate(21deg); }
+}
+
+@keyframes mission-status-pulse {
+  50% { opacity: 0.42; transform: scale(0.72); }
+}
+
+@keyframes mission-scan {
+  from { background-position: 0 -40px; }
+  to { background-position: 0 40px; }
+}
+
+@keyframes mission-radar-sweep {
+  from { transform: rotate(192deg); }
+  to { transform: rotate(348deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-status-dot,
+  .mission-scanline,
+  .mission-radar span,
+  .mission-radar b { animation: none; }
 }
 
 @layer base {

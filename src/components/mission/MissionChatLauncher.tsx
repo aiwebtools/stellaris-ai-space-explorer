@@ -13,8 +13,9 @@ const MissionChatLauncher: React.FC = () => {
   return (
     <>
       {isOpen && (
-        <div className="fixed z-50 bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[400px] h-[70vh] max-h-[600px] glass-panel p-4 flex flex-col shadow-2xl">
-          <div className="flex items-center gap-3 pb-3 border-b border-white/10">
+        <div className="fixed z-50 bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[420px] h-[70vh] max-h-[620px] mission-panel mission-corners p-4 flex flex-col shadow-2xl overflow-hidden">
+          <div className="mission-scanline" aria-hidden="true" />
+          <div className="relative z-10 flex items-center gap-3 pb-3 border-b border-border">
             <img
               src={missionOfficer}
               alt="Stellaris mission guidance officer"
@@ -24,27 +25,27 @@ const MissionChatLauncher: React.FC = () => {
               className="w-9 h-9 rounded-full object-cover ring-2 ring-space-blue/60"
             />
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-white truncate">Mission Control</p>
-              <p className="text-[11px] text-space-cyan">AI space guidance</p>
+              <p className="text-sm font-semibold text-foreground truncate uppercase tracking-[0.08em]">Mission Control</p>
+              <p className="text-[11px] text-mission-green flex items-center gap-1"><span className="mission-status-dot" /> AI guidance link active</p>
             </div>
             <div className="ml-auto flex items-center gap-1">
               <Link
                 to="/mission-control"
                 aria-label="Open full console"
-                className="p-2 text-gray-400 hover:text-white transition-colors"
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Maximize2 className="w-4 h-4" />
               </Link>
               <button
                 onClick={() => setIsOpen(false)}
                 aria-label="Close chat"
-                className="p-2 text-gray-400 hover:text-white transition-colors"
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <div className="flex-1 min-h-0 pt-3 flex flex-col">
+          <div className="relative z-10 flex-1 min-h-0 pt-3 flex flex-col">
             {thread && (
               <MissionChat
                 key={thread.id}
