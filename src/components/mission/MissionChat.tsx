@@ -24,11 +24,12 @@ import { Shimmer } from '@/components/ai-elements/shimmer';
 import missionOfficer from '@/assets/mission-officer.png';
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stellaris-chat`;
+const ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
 
 const SUGGESTIONS = [
   'Plan a crewed mission to Europa',
   'Best early tech priorities for a wide empire?',
-  'How do I pick a habitable exoplanet to settle?',
+  'How do I choose a habitable exoplanet to settle?',
 ];
 
 type MissionChatProps = {
@@ -42,17 +43,16 @@ const MissionChat: React.FC<MissionChatProps> = ({
   threadId,
   initialMessages,
   onMessagesChange,
-  compact = false,
 }) => {
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const composerRef = useRef<HTMLDivElement | null>(null);
 
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
         api: CHAT_URL,
         headers: {
-          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string,
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string}`,
+          apikey: ANON_KEY,
+          Authorization: `Bearer ${ANON_KEY}`,
         },
       }),
     [],
@@ -64,13 +64,12 @@ const MissionChat: React.FC<MissionChatProps> = ({
     transport,
   });
 
-  // Persist to the visitor's browser whenever the transcript settles or grows.
   useEffect(() => {
     onMessagesChange(threadId, messages);
   }, [messages, status, threadId, onMessagesChange]);
 
   const focusInput = useCallback(() => {
-    textareaRef.current?.focus();
+    composerRef.current?.querySelector('textarea')?.focus();
   }, []);
 
   useEffect(() => {
@@ -81,40 +80,43 @@ const MissionChat: React.FC<MissionChatProps> = ({
     if (status === 'ready') focusInput();
   }, [status, focusInput]);
 
+  const busy = status === 'submitted' || status === 'streaming';
+
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       const text = message.text?.trim();
-      if (!text || status === 'submitted' || status === 'streaming') return;
+      if (!text || busy) return;
       sendMessage({ text });
       focusInput();
     },
-    [sendMessage, status, focusInput],
+    [sendMessage, busy, focusInput],
   );
 
   const sendSuggestion = (text: string) => {
-    if (status === 'submitted' || status === 'streaming') return;
+    if (busy) return;
     sendMessage({ text });
     focusInput();
   };
 
   return (
     <div className="flex flex-col h-full min-h-0">
-      <Conversation className={compact ? 'flex-1 min-h-0' : 'flex-1 min-h-0'}>
+      <Conversation className="flex-1 min-h-0">
         <ConversationContent className="gap-4">
           {messages.length === 0 ? (
-            <ConversationEmptyState
-              className="border-none"
-              icon={
-                <img
-                  src={missionOfficer}
-                  alt="Stellaris mission guidance officer"
-                  className="w-20 h-20 rounded-full object-cover ring-2 ring-space-blue/60 shadow-[0_0_30px_rgba(56,189,248,0.4)]"
-                />
-              }
-              title="Mission Control online"
-              description="Ask about launch windows, colony sites, fleet builds or galactic strategy."
-            >
-              <div className="flex flex-wrap justify-center gap-2 mt-4">
+            <ConversationEmptyState>
+              <img
+                src={missionOfficer}
+                alt="Stellaris mission guidance officer"
+                loading="lazy"
+                width={816}
+                height={816}
+                className="w-20 h-20 rounded-full object-cover ring-2 ring-space-blue/60 shadow-[0_0_30px_rgba(56,189,248,0.4)]"
+              />
+              <h3 className="font-semibold text-white">Mission Control online</h3>
+              <p className="text-sm text-gray-400 max-w-sm">
+                Ask about launch windows, colony sites, fleet builds or galactic strategy.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
                 {SUGGESTIONS.map((s) => (
                   <button
                     key={s}
@@ -130,9 +132,7 @@ const MissionChat: React.FC<MissionChatProps> = ({
           ) : (
             messages.map((message) => (
               <Message from={message.role} key={message.id}>
-                <MessageContent
-                  variant={message.role === 'user' ? 'contained' : 'flat'}
-                >
+                <MessageContent>
                   {message.parts.map((part, index) =>
                     part.type === 'text' ? (
                       <MessageResponse key={`${message.id}-${index}`}>
@@ -147,7 +147,7 @@ const MissionChat: React.FC<MissionChatProps> = ({
 
           {status === 'submitted' && (
             <Message from="assistant">
-              <MessageContent variant="flat">
+              <MessageContent>
                 <Shimmer className="text-sm">Plotting trajectory...</Shimmer>
               </MessageContent>
             </Message>
@@ -165,10 +165,9 @@ const MissionChat: React.FC<MissionChatProps> = ({
         <ConversationScrollButton />
       </Conversation>
 
-      <div className="pt-3">
+      <div className="pt-3" ref={composerRef}>
         <PromptInput onSubmit={handleSubmit}>
           <PromptInputTextarea
-            ref={textareaRef}
             autoFocus
             placeholder="Ask Mission Control anything about space..."
           />
