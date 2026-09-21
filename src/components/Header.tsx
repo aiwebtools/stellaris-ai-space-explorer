@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
 import { createTimePortalEffect } from '../utils/timeEffects';
+import { INSITE_MISSION_LABEL, TOOL_LINKS } from '@/lib/toolLinks';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,7 +21,7 @@ const Header: React.FC = () => {
   // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -48,19 +50,19 @@ const Header: React.FC = () => {
   const handleStellarisClick = (e: React.MouseEvent) => {
     e.preventDefault();
     closeMobileMenu();
-    createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
+    createTimePortalEffect(TOOL_LINKS.stellarisChatGpt.url, TOOL_LINKS.stellarisChatGpt.voice);
   };
 
   const handleStellarOriginsClick = (e: React.MouseEvent) => {
     e.preventDefault();
     closeMobileMenu();
-    createTimePortalEffect('https://chatgpt.com/g/g-6876d3b63b108191948709afa101d5af-stellar-origins-gpt', 'MASTER! I AM ACCESSING STELLAR ORIGINS GPT NOW!');
+    createTimePortalEffect(TOOL_LINKS.stellarOriginsChatGpt.url, TOOL_LINKS.stellarOriginsChatGpt.voice);
   };
 
   const handleMoreToolsClick = (e: React.MouseEvent) => {
     e.preventDefault();
     closeMobileMenu();
-    createTimePortalEffect('https://aiwebtools.lovable.app/?via=aiwebtools', 'MASTER! I AM ACCESSING AIWEBTOOLS.AI NOW!');
+    createTimePortalEffect(TOOL_LINKS.aiWebTools.url, TOOL_LINKS.aiWebTools.voice);
   };
   
   return (
@@ -71,31 +73,37 @@ const Header: React.FC = () => {
         <Logo />
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
+        <nav className="hidden lg:flex items-center space-x-3 xl:space-x-5">
+          <Link
+            to="/mission-control"
+            className="button-primary text-xs xl:text-sm whitespace-nowrap"
+          >
+            {INSITE_MISSION_LABEL}
+          </Link>
           <button 
             onClick={handleStellarisClick}
-            className="button-primary text-sm lg:text-base whitespace-nowrap"
+            className="text-gray-300 hover:text-white transition-colors text-xs xl:text-sm whitespace-nowrap"
           >
-            Begin Simulation to Space
+            {TOOL_LINKS.stellarisChatGpt.shortLabel}
           </button>
           <button 
             onClick={handleStellarOriginsClick}
-            className="text-gray-300 hover:text-white transition-colors text-sm lg:text-base whitespace-nowrap"
+            className="text-gray-300 hover:text-white transition-colors text-xs xl:text-sm whitespace-nowrap"
           >
-            Stellar Origins GPT
+            {TOOL_LINKS.stellarOriginsChatGpt.shortLabel}
           </button>
-          <a href="#disclaimer" className="text-gray-300 hover:text-white transition-colors text-sm lg:text-base">Disclaimer</a>
+          <a href="#disclaimer" className="text-gray-300 hover:text-white transition-colors text-xs xl:text-sm">Disclaimer</a>
           <button 
             onClick={handleMoreToolsClick}
-            className="text-gray-300 hover:text-white transition-colors text-sm lg:text-base whitespace-nowrap"
+            className="text-gray-300 hover:text-white transition-colors text-xs xl:text-sm whitespace-nowrap"
           >
-            More AI Tools
+            {TOOL_LINKS.aiWebTools.shortLabel}
           </button>
         </nav>
         
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-white focus:outline-none p-2 -mr-2 active:scale-95 transition-transform"
+          className="lg:hidden text-white focus:outline-none p-2 -mr-2 active:scale-95 transition-transform"
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
           aria-expanded={isMobileMenuOpen}
@@ -111,13 +119,13 @@ const Header: React.FC = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 top-0 bg-black/60 backdrop-blur-sm z-40"
+          className="lg:hidden fixed inset-0 top-0 bg-black/60 backdrop-blur-sm z-40"
           onClick={closeMobileMenu}
         />
       )}
 
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-space-black/95 backdrop-blur-xl z-50 transform transition-transform duration-300 ease-out ${
+      <div className={`lg:hidden fixed top-0 right-0 h-full w-[310px] max-w-[86vw] bg-space-black/95 backdrop-blur-xl z-50 transform transition-transform duration-300 ease-out ${
         isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex justify-end p-4">
@@ -130,30 +138,37 @@ const Header: React.FC = () => {
           </button>
         </div>
         <nav className="flex flex-col space-y-2 px-6 pt-4">
+          <Link
+            to="/mission-control"
+            onClick={closeMobileMenu}
+            className="button-primary text-center py-3 text-sm"
+          >
+            {INSITE_MISSION_LABEL}
+          </Link>
           <button 
             onClick={handleStellarisClick}
-            className="button-primary text-center py-3 text-base"
+            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 text-left text-sm border-b border-white/10"
           >
-            Begin Simulation to Space
+            {TOOL_LINKS.stellarisChatGpt.label}
           </button>
           <button 
             onClick={handleStellarOriginsClick}
-            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 text-left text-base border-b border-white/10"
+            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 text-left text-sm border-b border-white/10"
           >
-            Stellar Origins GPT
+            {TOOL_LINKS.stellarOriginsChatGpt.label}
           </button>
           <a 
             href="#disclaimer" 
-            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 border-b border-white/10 text-base"
+            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 border-b border-white/10 text-sm"
             onClick={closeMobileMenu}
           >
             Disclaimer
           </a>
           <button 
             onClick={handleMoreToolsClick}
-            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 text-left text-base border-b border-white/10"
+            className="text-gray-300 hover:text-white active:text-white transition-colors py-3 text-left text-sm border-b border-white/10"
           >
-            More AI Tools
+            {TOOL_LINKS.aiWebTools.label}
           </button>
         </nav>
       </div>

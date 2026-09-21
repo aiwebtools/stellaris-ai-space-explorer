@@ -1,12 +1,19 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import YouTubeEmbed from './YouTubeEmbed';
 import { createTimePortalEffect } from '../utils/timeEffects';
+import { INSITE_MISSION_LABEL, TOOL_LINKS } from '@/lib/toolLinks';
 
 const Hero: React.FC = () => {
   const handleStellarisClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
+    createTimePortalEffect(TOOL_LINKS.stellarisChatGpt.url, TOOL_LINKS.stellarisChatGpt.voice);
+  };
+
+  const handleAiSuiteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect(TOOL_LINKS.aiWebTools.url, TOOL_LINKS.aiWebTools.voice);
   };
 
   return (
@@ -40,17 +47,24 @@ const Hero: React.FC = () => {
             <span className="block mt-2 italic text-space-cyan">To the stars and beyond...</span>
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 mb-12 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-4 mb-12 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+            <Link
+              to="/mission-control"
+              className="button-primary text-base sm:text-lg px-8 py-3"
+              aria-label="Launch Stellaris Mission Control in-site version"
+            >
+              {INSITE_MISSION_LABEL}
+            </Link>
             <button 
               onClick={handleStellarisClick}
-              className="button-primary text-lg px-8 py-3"
-              aria-label="Launch Stellaris AI Space Explorer"
+              className="px-8 py-3 rounded-full text-white border border-space-cyan/40 hover:bg-space-cyan/10 transition-colors text-base sm:text-lg"
+              aria-label="Open Stellaris AI Space Explorer ChatGPT version"
             >
-              Launch Stellaris Simulation
+              {TOOL_LINKS.stellarisChatGpt.shortLabel}
             </button>
-            <a href="https://aiwebtools.lovable.app/?via=aiwebtools" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-lg">
-              Explore AI Suite
-            </a>
+            <button onClick={handleAiSuiteClick} className="px-8 py-3 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors text-base sm:text-lg">
+              Explore AiWebTools.Ai Suite (EXTERNAL version)
+            </button>
           </div>
           
           <div className="w-full max-w-5xl opacity-0 animate-blur-in" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>

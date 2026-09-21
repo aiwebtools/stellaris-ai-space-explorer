@@ -6,6 +6,7 @@ import MissionChat from '@/components/mission/MissionChat';
 import FloatingToolsButton from '@/components/FloatingToolsButton';
 import { useMissionThreads } from '@/hooks/useMissionThreads';
 import missionOfficer from '@/assets/mission-officer.png';
+import { INSITE_MISSION_LABEL } from '@/lib/toolLinks';
 
 const MissionControl: React.FC = () => {
   const { threadId } = useParams<{ threadId: string }>();
@@ -65,7 +66,7 @@ const MissionControl: React.FC = () => {
               className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover ring-2 ring-space-cyan/60 shadow-mission-glow"
             />
             <div className="text-right">
-              <h1 className="text-sm sm:text-lg font-bold leading-tight uppercase tracking-[0.08em]">Stellaris Mission Control</h1>
+              <h1 className="text-sm sm:text-lg font-bold leading-tight uppercase tracking-[0.08em]">{INSITE_MISSION_LABEL}</h1>
               <p className="text-[10px] sm:text-xs text-mission-green flex items-center justify-end gap-1"><span className="mission-status-dot" /> Live AI flight guidance</p>
             </div>
           </div>

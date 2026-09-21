@@ -4,6 +4,7 @@ import { MessagesSquare } from 'lucide-react';
 import MissionChat from './MissionChat';
 import { useMissionThreads } from '@/hooks/useMissionThreads';
 import missionOfficer from '@/assets/mission-officer.png';
+import { INSITE_MISSION_LABEL } from '@/lib/toolLinks';
 
 const MissionConsoleSection: React.FC = () => {
   const { threads, updateMessages } = useMissionThreads();
@@ -11,7 +12,7 @@ const MissionConsoleSection: React.FC = () => {
 
   return (
     <section id="mission-control" className="section-container">
-      <h2 className="section-title text-center">Talk to Stellaris Mission Control</h2>
+      <h2 className="section-title text-center">Talk to Stellaris Mission Control (INSITE version)</h2>
       <p className="section-subtitle text-center">
         Ask our on-site AI for live guidance on space missions, colony planning, fleet builds and
         galactic strategy — right here, no signup needed.
@@ -30,13 +31,13 @@ const MissionConsoleSection: React.FC = () => {
           />
           <div>
             <h3 className="font-semibold text-foreground uppercase tracking-[0.08em]">Stellaris Flight Officer</h3>
-            <p className="text-xs text-mission-green flex items-center gap-1.5"><span className="mission-status-dot" /> Online • mission guidance AI</p>
+            <p className="text-xs text-mission-green flex items-center gap-1.5"><span className="mission-status-dot" /> Online • {INSITE_MISSION_LABEL}</p>
           </div>
           <Link
             to="/mission-control"
             className="ml-auto inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            <MessagesSquare className="w-4 h-4" /> Open full console
+            <MessagesSquare className="w-4 h-4" /> Open {INSITE_MISSION_LABEL}
           </Link>
         </div>
 

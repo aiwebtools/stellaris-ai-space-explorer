@@ -1,12 +1,19 @@
 
 import React from 'react';
 import { Rocket } from 'lucide-react';
+import { TOOL_LINKS } from '@/lib/toolLinks';
+import { createTimePortalEffect } from '@/utils/timeEffects';
 
 interface LogoProps {
   className?: string;
 }
 
 const Logo: React.FC<LogoProps> = ({ className }) => {
+  const handleAiWebToolsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    createTimePortalEffect(TOOL_LINKS.aiWebTools.url, TOOL_LINKS.aiWebTools.voice);
+  };
+
   return (
     <div className={`flex items-center ${className}`}>
       <div className="relative">
@@ -21,7 +28,7 @@ const Logo: React.FC<LogoProps> = ({ className }) => {
           <span className="text-space-blue"> 🚀</span>
         </h1>
         <p className="text-[10px] text-gray-400 font-medium">
-          Presented by <a href="https://aiwebtools.lovable.app/?via=aiwebtools" target="_blank" rel="noopener noreferrer" className="text-space-purple hover:text-space-pink transition-colors">AiWebTools.Ai</a>
+          Presented by <button onClick={handleAiWebToolsClick} className="text-space-purple hover:text-space-pink transition-colors">AiWebTools.Ai</button>
         </p>
       </div>
     </div>
