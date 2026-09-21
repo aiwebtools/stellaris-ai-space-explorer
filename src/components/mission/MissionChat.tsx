@@ -69,7 +69,7 @@ const MissionChat: React.FC<MissionChatProps> = ({
   }, [messages, status, threadId, onMessagesChange]);
 
   const focusInput = useCallback(() => {
-    composerRef.current?.querySelector('textarea')?.focus();
+    composerRef.current?.querySelector('textarea')?.focus({ preventScroll: true });
   }, []);
 
   useEffect(() => {
@@ -168,7 +168,6 @@ const MissionChat: React.FC<MissionChatProps> = ({
       <div className="pt-3" ref={composerRef}>
         <PromptInput onSubmit={handleSubmit}>
           <PromptInputTextarea
-            autoFocus
             placeholder="Ask Mission Control anything about space..."
           />
           <PromptInputFooter className="justify-between">

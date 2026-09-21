@@ -148,7 +148,7 @@ const MissionControl: React.FC = () => {
           </main>
         </div>
       </div>
-      <FloatingToolsButton />
+      <FloatingToolsButton compact />
     </div>
   );
 };
