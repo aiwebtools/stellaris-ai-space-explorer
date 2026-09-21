@@ -127,7 +127,7 @@ const MissionControl: React.FC = () => {
           </aside>
 
           {/* Chat */}
-          <main className="mission-panel mission-corners p-3 sm:p-4 h-[calc(100vh-12rem)] min-h-[540px] max-h-[850px] flex flex-col relative overflow-hidden">
+          <main className="mission-panel mission-corners p-3 pb-16 sm:p-4 h-[calc(100vh-12rem)] min-h-[540px] max-h-[850px] flex flex-col relative overflow-hidden">
             <div className="mission-scanline" aria-hidden="true" />
             <div className="flex items-center justify-between pb-2 mb-2 border-b border-border text-[9px] uppercase tracking-[0.14em] text-muted-foreground relative z-10">
               <span>Encrypted guidance channel</span>
