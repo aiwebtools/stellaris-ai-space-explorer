@@ -23,15 +23,15 @@ const Features: React.FC = () => {
     <section id="features" className="section-container">
       <h2 className="section-title text-center">Master the Galaxy with Advanced AI Tools</h2>
       <p className="section-subtitle text-center">
-        From interstellar empire building to cosmic spiritual awakening - discover the ultimate collection of 
-        <strong className="text-white"> specialized AI tools</strong> designed for space exploration, galactic strategy, and consciousness expansion.
+        From the in-site mission console to original external tool versions, discover a focused collection of 
+        <strong className="text-white"> specialized AI tools</strong> designed for space exploration, galactic strategy, and cosmic discovery.
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
         <FeatureCard 
           icon={<Rocket className="h-10 w-10" />}
-          title="Stellaris AI Space Explorer"
-          description="Master galactic empires, plan interstellar colonization, and dominate space strategy. Get expert guidance on fleet composition, technology trees, species design, and diplomatic strategies for Stellaris gameplay."
+          title="Stellaris AI Space Explorer (INSITE + CHATGPT versions)"
+          description="Use Mission Control directly on this site, or open the original ChatGPT version when you want the external custom GPT. Both are clearly labeled before launch."
           delay={0.1}
         />
         

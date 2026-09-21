@@ -4,6 +4,7 @@ import { X, Maximize2, Rocket } from 'lucide-react';
 import MissionChat from './MissionChat';
 import { useMissionThreads } from '@/hooks/useMissionThreads';
 import missionOfficer from '@/assets/mission-officer.png';
+import { INSITE_MISSION_LABEL } from '@/lib/toolLinks';
 
 const MissionChatLauncher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,7 @@ const MissionChatLauncher: React.FC = () => {
               className="w-9 h-9 rounded-full object-cover ring-2 ring-space-blue/60"
             />
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-foreground truncate uppercase tracking-[0.08em]">Mission Control</p>
+              <p className="text-sm font-semibold text-foreground truncate uppercase tracking-[0.08em]">{INSITE_MISSION_LABEL}</p>
               <p className="text-[11px] text-mission-green flex items-center gap-1"><span className="mission-status-dot" /> AI guidance link active</p>
             </div>
             <div className="ml-auto flex items-center gap-1">
@@ -61,7 +62,7 @@ const MissionChatLauncher: React.FC = () => {
 
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        aria-label="Ask Stellaris Mission Control"
+        aria-label="Ask Stellaris Mission Control in-site version"
         className="fixed bottom-6 right-6 z-50 group"
       >
         <div className="relative">
@@ -71,7 +72,7 @@ const MissionChatLauncher: React.FC = () => {
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-space-cyan to-space-purple opacity-0 group-hover:opacity-40 blur-lg transition-opacity duration-300" />
           {!isOpen && (
             <div className="absolute right-20 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              ASK MISSION CONTROL
+              ASK MISSION CONTROL (INSITE)
             </div>
           )}
         </div>

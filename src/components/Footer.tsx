@@ -1,32 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { createTimePortalEffect } from '../utils/timeEffects';
+import { INSITE_MISSION_LABEL, TOOL_LINKS } from '@/lib/toolLinks';
 
 const Footer: React.FC = () => {
   const handleStellarisClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://chatgpt.com/g/g-Z9NfCiq7e-stellaris-ai-space-explorer');
+    createTimePortalEffect(TOOL_LINKS.stellarisChatGpt.url, TOOL_LINKS.stellarisChatGpt.voice);
   };
 
 
   const handlePrivacyPolicyClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://openai.com/policies/privacy-policy/');
+    createTimePortalEffect(TOOL_LINKS.openAiPrivacy.url);
   };
 
   const handleTermsClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://aiwebtools.lovable.app/disclaimers');
+    createTimePortalEffect(TOOL_LINKS.aiWebToolsDisclaimers.url);
   };
 
   const handleStellarOriginsClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://chatgpt.com/g/g-6876d3b63b108191948709afa101d5af-stellar-origins-gpt', 'MASTER! I AM ACCESSING STELLAR ORIGINS GPT NOW!');
+    createTimePortalEffect(TOOL_LINKS.stellarOriginsChatGpt.url, TOOL_LINKS.stellarOriginsChatGpt.voice);
   };
 
   const handleMoreToolsClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    createTimePortalEffect('https://aiwebtools.lovable.app/?via=aiwebtools');
+    createTimePortalEffect(TOOL_LINKS.aiWebTools.url, TOOL_LINKS.aiWebTools.voice);
   };
 
   const handlePhoneClick = (e: React.MouseEvent) => {
@@ -56,25 +58,30 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-medium mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
+                <Link to="/mission-control" className="text-gray-400 hover:text-space-blue transition-colors">
+                  {INSITE_MISSION_LABEL}
+                </Link>
+              </li>
+              <li>
                 <button 
                   onClick={handleStellarisClick}
                   className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
-                  Begin Simulation to Space
+                  {TOOL_LINKS.stellarisChatGpt.label}
                 </button>
-              </li>
-              <li>
-                <a href="#features" className="text-gray-400 hover:text-space-blue transition-colors">
-                  Features
-                </a>
               </li>
               <li>
                 <button 
                   onClick={handleStellarOriginsClick}
                   className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
-                  Stellar Origins GPT
+                  {TOOL_LINKS.stellarOriginsChatGpt.label}
                 </button>
+              </li>
+              <li>
+                <a href="#features" className="text-gray-400 hover:text-space-blue transition-colors">
+                  Features
+                </a>
               </li>
               <li>
                 <a href="#disclaimer" className="text-gray-400 hover:text-space-blue transition-colors">
@@ -93,7 +100,7 @@ const Footer: React.FC = () => {
                   onClick={handlePrivacyPolicyClick}
                   className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
-                  Privacy Policy
+                  {TOOL_LINKS.openAiPrivacy.label}
                 </button>
               </li>
               <li>
@@ -101,7 +108,7 @@ const Footer: React.FC = () => {
                   onClick={handleTermsClick}
                   className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
-                  Terms of Service
+                  {TOOL_LINKS.aiWebToolsDisclaimers.label}
                 </button>
               </li>
               <li>
@@ -109,7 +116,7 @@ const Footer: React.FC = () => {
                   onClick={handleMoreToolsClick}
                   className="text-gray-400 hover:text-space-blue transition-colors text-left"
                 >
-                  More AI Tools
+                  {TOOL_LINKS.aiWebTools.label}
                 </button>
               </li>
             </ul>
@@ -145,7 +152,7 @@ const Footer: React.FC = () => {
             onClick={handleMoreToolsClick}
             className="rounded-full bg-gradient-to-r from-space-blue to-space-purple px-6 py-3 text-white font-medium transform hover:scale-105 transition-all"
           >
-            More AI Tools
+            {TOOL_LINKS.aiWebTools.label}
           </button>
         </div>
         

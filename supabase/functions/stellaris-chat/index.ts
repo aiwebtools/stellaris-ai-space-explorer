@@ -25,6 +25,26 @@ Style:
 - This is an educational and entertainment simulation tool, not certified aerospace engineering advice. If asked for real-world safety-critical decisions, say so plainly.
 - Never discuss weapons construction or anything harmful; redirect to the simulation.`;
 
+const CREDIT_FALLBACK_MESSAGE =
+  "Sorry, community credits have run out for today. Please try the Stellaris ChatGPT version while the in-site Mission Control refuels.";
+
+const gatewayErrorMessage = (error: unknown): string => {
+  const maybeError = error as { status?: number; statusCode?: number; responseBody?: unknown; message?: string };
+  const status = maybeError?.status ?? maybeError?.statusCode;
+  const message = error instanceof Error ? error.message : String(error ?? "Unknown error");
+  const body = typeof maybeError?.responseBody === "string" ? maybeError.responseBody : "";
+  const combined = `${status ?? ""} ${message} ${body}`;
+
+  if (
+    status === 402 ||
+    /insufficient.{0,24}credit|credit.{0,24}limit|credit_limit_reached|out of credits|payment required|community credits/i.test(combined)
+  ) {
+    return CREDIT_FALLBACK_MESSAGE;
+  }
+
+  return message || "Mission Control transmission failed. Please try again in a moment.";
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -54,6 +74,7 @@ Deno.serve(async (req) => {
       model: lovable.responses("openai/gpt-6-astra"),
       system: SYSTEM_PROMPT,
       messages: await convertToModelMessages(messages),
+      maxRetries: 0,
       providerOptions: {
         openai: {
           forceReasoning: true,
@@ -68,6 +89,7 @@ Deno.serve(async (req) => {
     const response = result.toUIMessageStreamResponse({
       originalMessages: messages,
       sendReasoning: true,
+      onError: gatewayErrorMessage,
     });
 
     const headers = new Headers(response.headers);
@@ -77,9 +99,10 @@ Deno.serve(async (req) => {
     return new Response(response.body, { status: response.status, headers });
   } catch (error) {
     console.error("stellaris-chat error", error);
-    const message = error instanceof Error ? error.message : "Unknown error";
+    const message = gatewayErrorMessage(error);
+    const status = message === CREDIT_FALLBACK_MESSAGE ? 402 : 500;
     return new Response(JSON.stringify({ error: message }), {
-      status: 500,
+      status,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
