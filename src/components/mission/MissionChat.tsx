@@ -261,6 +261,21 @@ const MissionChat: React.FC<MissionChatProps> = ({
                       </MessageResponse>
                     ) : null,
                   )}
+                  {message.role === 'assistant' && !(busy && message.id === messages[messages.length - 1]?.id) && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        speakingId === message.id
+                          ? stopSpeaking()
+                          : speakMessage(message.id, message.parts.map((p) => (p.type === 'text' ? p.text : '')).join(' '))
+                      }
+                      className="mt-1 self-start inline-flex items-center gap-1 text-[11px] text-gray-400 hover:text-space-cyan transition-colors"
+                      aria-label={speakingId === message.id ? 'Stop reading aloud' : 'Read aloud'}
+                    >
+                      {speakingId === message.id ? <Square className="w-3 h-3" /> : <Volume2 className="w-3.5 h-3.5" />}
+                      {speakingId === message.id ? 'Stop' : 'Listen'}
+                    </button>
+                  )}
                 </MessageContent>
               </Message>
             ))
@@ -302,15 +317,47 @@ const MissionChat: React.FC<MissionChatProps> = ({
       </Conversation>
 
       <div className="pt-3" ref={composerRef}>
+        {(voiceMode || voiceNote) && (
+          <div className="mb-2 flex items-center gap-2 text-xs px-3 py-2 rounded-lg border border-space-blue/40 bg-space-blue/10 text-gray-300" aria-live="polite">
+            <AudioLines className={`w-4 h-4 text-space-cyan ${listening || speakingId ? 'animate-pulse' : ''}`} />
+            {voiceNote ??
+              (listening
+                ? 'Listening, Commander… speak your question.'
+                : speakingId
+                  ? 'Stellaris is speaking…'
+                  : busy
+                    ? 'Plotting trajectory…'
+                    : 'Voice mode on — tap the mic to talk.')}
+          </div>
+        )}
         <PromptInput onSubmit={handleSubmit}>
           <PromptInputTextarea
-            placeholder="Ask Mission Control anything about space..."
+            placeholder={listening ? 'Listening…' : 'Ask Mission Control anything about space...'}
           />
           <PromptInputFooter className="justify-between">
-            <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-400 pl-1">
-              <Radar className="w-3.5 h-3.5 text-space-cyan" />
-              Simulation guidance only
-            </span>
+            <div className="flex items-center gap-1">
+              <Button
+                type="button"
+                size="sm"
+                variant={voiceMode ? 'default' : 'ghost'}
+                onClick={toggleVoiceMode}
+                aria-pressed={voiceMode}
+                aria-label={voiceMode ? 'Turn voice mode off' : 'Turn voice mode on'}
+                className="rounded-full h-8 gap-1.5"
+              >
+                {voiceMode ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+                <span className="text-xs">{voiceMode ? 'End voice' : 'Voice mode'}</span>
+              </Button>
+              {voiceMode && !listening && !speakingId && !busy && (
+                <Button type="button" size="icon-sm" variant="ghost" onClick={startListening} aria-label="Talk now" className="rounded-full">
+                  <Mic className="w-4 h-4 text-space-cyan" />
+                </Button>
+              )}
+              <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-400 pl-1">
+                <Radar className="w-3.5 h-3.5 text-space-cyan" />
+                Simulation guidance only
+              </span>
+            </div>
             <PromptInputSubmit
               status={status}
               onStop={stop}
