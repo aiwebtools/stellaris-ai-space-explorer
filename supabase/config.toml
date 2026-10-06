@@ -2,3 +2,6 @@ project_id = "jxdccqaviotgjgctwoka"
 
 [functions.stellaris-chat]
 verify_jwt = false
+
+[functions.stellaris-tts]
+verify_jwt = false

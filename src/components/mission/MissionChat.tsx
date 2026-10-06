@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, type UIMessage } from 'ai';
-import { Radar, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Radar, AlertTriangle, ExternalLink, Volume2, Square, Mic, MicOff, AudioLines } from 'lucide-react';
+import { speak, toSpeakable, getRecognitionCtor, type Recognition } from '@/lib/speech';
 import {
   Conversation,
   ConversationContent,
@@ -90,6 +91,118 @@ const MissionChat: React.FC<MissionChatProps> = ({
   const errorMessage = error?.message || 'please try again in a moment.';
   const showCreditFallback = error ? isCreditFallbackError(errorMessage) : false;
 
+  // ---- Voice: read-aloud + hands-free voice mode ----
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [speakingId, setSpeakingId] = useState<string | null>(null);
+  const [voiceNote, setVoiceNote] = useState<string | null>(null);
+  const speakAbort = useRef<AbortController | null>(null);
+  const recognitionRef = useRef<Recognition | null>(null);
+  const voiceModeRef = useRef(false);
+  const lastSpokenRef = useRef<string | null>(null);
+  const RecognitionCtor = useMemo(() => (typeof window !== 'undefined' ? getRecognitionCtor() : null), []);
+  voiceModeRef.current = voiceMode;
+
+  const stopSpeaking = useCallback(() => {
+    speakAbort.current?.abort();
+    speakAbort.current = null;
+    setSpeakingId(null);
+  }, []);
+
+  const stopListening = useCallback(() => {
+    recognitionRef.current?.abort();
+    recognitionRef.current = null;
+    setListening(false);
+  }, []);
+
+  const startListening = useCallback(() => {
+    if (!RecognitionCtor) {
+      setVoiceNote('Voice input is not supported in this browser — try Chrome, Edge or Safari.');
+      return;
+    }
+    stopListening();
+    const rec = new RecognitionCtor();
+    rec.lang = 'en-US';
+    rec.interimResults = false;
+    rec.continuous = false;
+    let heard = '';
+    rec.onresult = (e) => {
+      for (let i = 0; i < e.results.length; i++) if (e.results[i].isFinal) heard += e.results[i][0].transcript;
+    };
+    rec.onerror = (e) => {
+      if (e.error === 'not-allowed') {
+        setVoiceNote('Microphone access was blocked. Allow the mic to talk to Mission Control.');
+        setVoiceMode(false);
+      }
+    };
+    rec.onend = () => {
+      setListening(false);
+      recognitionRef.current = null;
+      const text = heard.trim();
+      if (text) sendMessage({ text });
+    };
+    recognitionRef.current = rec;
+    setVoiceNote(null);
+    setListening(true);
+    rec.start();
+  }, [RecognitionCtor, sendMessage, stopListening]);
+
+  const speakMessage = useCallback(
+    async (id: string, text: string) => {
+      stopSpeaking();
+      stopListening();
+      const ctrl = new AbortController();
+      speakAbort.current = ctrl;
+      setSpeakingId(id);
+      setVoiceNote(null);
+      try {
+        await speak(toSpeakable(text), ctrl.signal);
+      } catch (e) {
+        if (ctrl.signal.aborted) return;
+        setVoiceNote(
+          e instanceof Error && e.message === 'credits'
+            ? 'Voice credits have run out for today — text replies still work.'
+            : 'Voice transmission failed. Please try again.',
+        );
+      } finally {
+        if (speakAbort.current === ctrl) {
+          speakAbort.current = null;
+          setSpeakingId(null);
+          if (voiceModeRef.current && !ctrl.signal.aborted) startListening();
+        }
+      }
+    },
+    [stopSpeaking, stopListening, startListening],
+  );
+
+  // Auto-speak each finished reply in voice mode.
+  useEffect(() => {
+    if (!voiceMode || status !== 'ready') return;
+    const last = messages[messages.length - 1];
+    if (!last || last.role !== 'assistant' || lastSpokenRef.current === last.id) return;
+    lastSpokenRef.current = last.id;
+    const text = last.parts.map((p) => (p.type === 'text' ? p.text : '')).join(' ');
+    if (text.trim()) speakMessage(last.id, text);
+  }, [voiceMode, status, messages, speakMessage]);
+
+  const toggleVoiceMode = () => {
+    if (voiceMode) {
+      setVoiceMode(false);
+      stopListening();
+      stopSpeaking();
+      return;
+    }
+    const last = messages[messages.length - 1];
+    lastSpokenRef.current = last?.id ?? null;
+    setVoiceMode(true);
+    startListening();
+  };
+
+  useEffect(() => () => {
+    speakAbort.current?.abort();
+    recognitionRef.current?.abort();
+  }, []);
+
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       const text = message.text?.trim();
@@ -148,6 +261,21 @@ const MissionChat: React.FC<MissionChatProps> = ({
                       </MessageResponse>
                     ) : null,
                   )}
+                  {message.role === 'assistant' && !(busy && message.id === messages[messages.length - 1]?.id) && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        speakingId === message.id
+                          ? stopSpeaking()
+                          : speakMessage(message.id, message.parts.map((p) => (p.type === 'text' ? p.text : '')).join(' '))
+                      }
+                      className="mt-1 self-start inline-flex items-center gap-1 text-[11px] text-gray-400 hover:text-space-cyan transition-colors"
+                      aria-label={speakingId === message.id ? 'Stop reading aloud' : 'Read aloud'}
+                    >
+                      {speakingId === message.id ? <Square className="w-3 h-3" /> : <Volume2 className="w-3.5 h-3.5" />}
+                      {speakingId === message.id ? 'Stop' : 'Listen'}
+                    </button>
+                  )}
                 </MessageContent>
               </Message>
             ))
@@ -189,15 +317,47 @@ const MissionChat: React.FC<MissionChatProps> = ({
       </Conversation>
 
       <div className="pt-3" ref={composerRef}>
+        {(voiceMode || voiceNote) && (
+          <div className="mb-2 flex items-center gap-2 text-xs px-3 py-2 rounded-lg border border-space-blue/40 bg-space-blue/10 text-gray-300" aria-live="polite">
+            <AudioLines className={`w-4 h-4 text-space-cyan ${listening || speakingId ? 'animate-pulse' : ''}`} />
+            {voiceNote ??
+              (listening
+                ? 'Listening, Commander… speak your question.'
+                : speakingId
+                  ? 'Stellaris is speaking…'
+                  : busy
+                    ? 'Plotting trajectory…'
+                    : 'Voice mode on — tap the mic to talk.')}
+          </div>
+        )}
         <PromptInput onSubmit={handleSubmit}>
           <PromptInputTextarea
-            placeholder="Ask Mission Control anything about space..."
+            placeholder={listening ? 'Listening…' : 'Ask Mission Control anything about space...'}
           />
           <PromptInputFooter className="justify-between">
-            <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-400 pl-1">
-              <Radar className="w-3.5 h-3.5 text-space-cyan" />
-              Simulation guidance only
-            </span>
+            <div className="flex items-center gap-1">
+              <Button
+                type="button"
+                size="sm"
+                variant={voiceMode ? 'default' : 'ghost'}
+                onClick={toggleVoiceMode}
+                aria-pressed={voiceMode}
+                aria-label={voiceMode ? 'Turn voice mode off' : 'Turn voice mode on'}
+                className="rounded-full h-8 gap-1.5"
+              >
+                {voiceMode ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+                <span className="text-xs">{voiceMode ? 'End voice' : 'Voice mode'}</span>
+              </Button>
+              {voiceMode && !listening && !speakingId && !busy && (
+                <Button type="button" size="icon-sm" variant="ghost" onClick={startListening} aria-label="Talk now" className="rounded-full">
+                  <Mic className="w-4 h-4 text-space-cyan" />
+                </Button>
+              )}
+              <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-400 pl-1">
+                <Radar className="w-3.5 h-3.5 text-space-cyan" />
+                Simulation guidance only
+              </span>
+            </div>
             <PromptInputSubmit
               status={status}
               onStop={stop}
