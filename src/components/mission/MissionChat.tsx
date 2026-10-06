@@ -90,6 +90,118 @@ const MissionChat: React.FC<MissionChatProps> = ({
   const errorMessage = error?.message || 'please try again in a moment.';
   const showCreditFallback = error ? isCreditFallbackError(errorMessage) : false;
 
+  // ---- Voice: read-aloud + hands-free voice mode ----
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [speakingId, setSpeakingId] = useState<string | null>(null);
+  const [voiceNote, setVoiceNote] = useState<string | null>(null);
+  const speakAbort = useRef<AbortController | null>(null);
+  const recognitionRef = useRef<Recognition | null>(null);
+  const voiceModeRef = useRef(false);
+  const lastSpokenRef = useRef<string | null>(null);
+  const RecognitionCtor = useMemo(() => (typeof window !== 'undefined' ? getRecognitionCtor() : null), []);
+  voiceModeRef.current = voiceMode;
+
+  const stopSpeaking = useCallback(() => {
+    speakAbort.current?.abort();
+    speakAbort.current = null;
+    setSpeakingId(null);
+  }, []);
+
+  const stopListening = useCallback(() => {
+    recognitionRef.current?.abort();
+    recognitionRef.current = null;
+    setListening(false);
+  }, []);
+
+  const startListening = useCallback(() => {
+    if (!RecognitionCtor) {
+      setVoiceNote('Voice input is not supported in this browser — try Chrome, Edge or Safari.');
+      return;
+    }
+    stopListening();
+    const rec = new RecognitionCtor();
+    rec.lang = 'en-US';
+    rec.interimResults = false;
+    rec.continuous = false;
+    let heard = '';
+    rec.onresult = (e) => {
+      for (let i = 0; i < e.results.length; i++) if (e.results[i].isFinal) heard += e.results[i][0].transcript;
+    };
+    rec.onerror = (e) => {
+      if (e.error === 'not-allowed') {
+        setVoiceNote('Microphone access was blocked. Allow the mic to talk to Mission Control.');
+        setVoiceMode(false);
+      }
+    };
+    rec.onend = () => {
+      setListening(false);
+      recognitionRef.current = null;
+      const text = heard.trim();
+      if (text) sendMessage({ text });
+    };
+    recognitionRef.current = rec;
+    setVoiceNote(null);
+    setListening(true);
+    rec.start();
+  }, [RecognitionCtor, sendMessage, stopListening]);
+
+  const speakMessage = useCallback(
+    async (id: string, text: string) => {
+      stopSpeaking();
+      stopListening();
+      const ctrl = new AbortController();
+      speakAbort.current = ctrl;
+      setSpeakingId(id);
+      setVoiceNote(null);
+      try {
+        await speak(toSpeakable(text), ctrl.signal);
+      } catch (e) {
+        if (ctrl.signal.aborted) return;
+        setVoiceNote(
+          e instanceof Error && e.message === 'credits'
+            ? 'Voice credits have run out for today — text replies still work.'
+            : 'Voice transmission failed. Please try again.',
+        );
+      } finally {
+        if (speakAbort.current === ctrl) {
+          speakAbort.current = null;
+          setSpeakingId(null);
+          if (voiceModeRef.current && !ctrl.signal.aborted) startListening();
+        }
+      }
+    },
+    [stopSpeaking, stopListening, startListening],
+  );
+
+  // Auto-speak each finished reply in voice mode.
+  useEffect(() => {
+    if (!voiceMode || status !== 'ready') return;
+    const last = messages[messages.length - 1];
+    if (!last || last.role !== 'assistant' || lastSpokenRef.current === last.id) return;
+    lastSpokenRef.current = last.id;
+    const text = last.parts.map((p) => (p.type === 'text' ? p.text : '')).join(' ');
+    if (text.trim()) speakMessage(last.id, text);
+  }, [voiceMode, status, messages, speakMessage]);
+
+  const toggleVoiceMode = () => {
+    if (voiceMode) {
+      setVoiceMode(false);
+      stopListening();
+      stopSpeaking();
+      return;
+    }
+    const last = messages[messages.length - 1];
+    lastSpokenRef.current = last?.id ?? null;
+    setVoiceMode(true);
+    startListening();
+  };
+
+  useEffect(() => () => {
+    speakAbort.current?.abort();
+    recognitionRef.current?.abort();
+  }, []);
+
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       const text = message.text?.trim();
