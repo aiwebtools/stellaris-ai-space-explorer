@@ -253,22 +253,20 @@ export const createTimePortalEffect = (destinationUrl: string, customMessage?: s
 
   const speakMessage = (message: string) => {
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(message);
-      utterance.rate = 0.7;
-      utterance.pitch = 0.2;
-      utterance.volume = 0.8;
-      
+      // Friendly, human-sounding female ship assistant for teleport announcements.
+      const friendly = message.replace(/MASTER!/gi, 'Master,').toLowerCase().replace(/(^\w|[.!?]\s+\w)/g, (c) => c.toUpperCase());
+      const utterance = new SpeechSynthesisUtterance(friendly);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.15;
+      utterance.volume = 0.9;
+
       const voices = speechSynthesis.getVoices();
-      const roboticVoice = voices.find(voice => 
-        voice.name.toLowerCase().includes('daniel') || 
-        voice.name.toLowerCase().includes('samantha') ||
-        voice.name.toLowerCase().includes('alex')
-      );
-      
-      if (roboticVoice) {
-        utterance.voice = roboticVoice;
-      }
-      
+      const preferred = ['samantha', 'google us english', 'microsoft aria', 'microsoft jenny', 'zira', 'ava', 'allison', 'susan', 'karen', 'serena', 'victoria', 'female'];
+      const femaleVoice =
+        preferred.map((n) => voices.find((v) => v.name.toLowerCase().includes(n) && v.lang.startsWith('en'))).find(Boolean) ||
+        voices.find((v) => v.lang.startsWith('en'));
+      if (femaleVoice) utterance.voice = femaleVoice;
+
       speechSynthesis.speak(utterance);
     }
   };
