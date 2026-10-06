@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, type UIMessage } from 'ai';
-import { Radar, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Radar, AlertTriangle, ExternalLink, Volume2, Square, Mic, MicOff, AudioLines } from 'lucide-react';
+import { speak, toSpeakable, getRecognitionCtor, type Recognition } from '@/lib/speech';
 import {
   Conversation,
   ConversationContent,
